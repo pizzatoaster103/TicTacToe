@@ -28,20 +28,23 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 if (isGameOver(board, currentPlayer))
                 {
                     ongoing = false;
+                }
+                else
+                {
                     currentPlayer = GetNextPlayer(currentPlayer);
                 }
             }
-            Console.WriteLine($"Congrats Player{currentPlayer}! You win!");
+            Console.WriteLine($"Congrats Player {currentPlayer}! You win!");
 
 
         }
         static void printBoard(List<string> board)
         {
-            Console.WriteLine($"\n{board[0]}|{board[1]}|{board[2]}\n");
-            Console.WriteLine("-+-+-");
-            Console.WriteLine($"\n{board[3]}|{board[4]}|{board[5]}\n");
-            Console.WriteLine("-+-+-");
-            Console.WriteLine($"\n{board[6]}|{board[7]}|{board[8]}\n");
+            Console.Write($"\n{board[0]}|{board[1]}|{board[2]}\n");
+            Console.Write("-+-+-");
+            Console.Write($"\n{board[3]}|{board[4]}|{board[5]}\n");
+            Console.Write("-+-+-");
+            Console.Write($"\n{board[6]}|{board[7]}|{board[8]}\n");
         }
         static int playerTurn(string player)
         {
@@ -53,7 +56,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
         }
         static bool validateSquare(int squareNumber, List<string> board)
         {
-            if (squareNumber == int.Parse(board[squareNumber]) - 1)
+            if (squareNumber == (int.Parse(board[squareNumber]) - 1))
             {
                 return true;
             }
@@ -62,6 +65,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 return false;
             }
         }
+
+
         static void updateBoard(List<string> board, int request, string currentPlayer)
         {
             int index = request - 1;
