@@ -22,6 +22,11 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 while (!validSquare)
                 {
                     validSquare = validateSquare(request, board);
+                    if (!validSquare)
+                    {
+                        Console.WriteLine("Please enter a valid square.");
+                        request = playerTurn(currentPlayer);
+                    }
                 }
 
                 updateBoard(board, request, currentPlayer);
@@ -34,10 +39,12 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     currentPlayer = GetNextPlayer(currentPlayer);
                 }
             }
+            printBoard(board);
             Console.WriteLine($"Congrats Player {currentPlayer}! You win!");
 
 
         }
+        //prints the board
         static void printBoard(List<string> board)
         {
             Console.Write($"\n{board[0]}|{board[1]}|{board[2]}\n");
@@ -46,6 +53,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.Write("-+-+-");
             Console.Write($"\n{board[6]}|{board[7]}|{board[8]}\n");
         }
+        //player selects a square
         static int playerTurn(string player)
         {
             Console.Write($"\nPlayer {player}, it is your turn.\nPlease choose a valid square from 1-9: ");
@@ -54,25 +62,39 @@ namespace MyApp // Note: actual namespace depends on the project name.
             int choice = int.Parse(answer);
             return choice;
         }
+        //check that the square isn't already taken
         static bool validateSquare(int squareNumber, List<string> board)
         {
-            if (squareNumber == (int.Parse(board[squareNumber]) - 1))
+            /*if (squareNumber == (int.Parse(board[squareNumber]) - 1))
             {
                 return true;
             }
             else
             {
                 return false;
+            }*/
+            if (board[squareNumber - 1] == "x")
+            {
+                return false;
+            }
+            else if (board[squareNumber - 1] == "o")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
 
-
+        //updates the board for the next round
         static void updateBoard(List<string> board, int request, string currentPlayer)
         {
             int index = request - 1;
             board[index] = currentPlayer;
 
         }
+        //switch to the next player
         static string GetNextPlayer(string current)
         {
             string next = "x";
@@ -83,6 +105,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             return next;
 
         }
+        //check if the game is over
         static bool isGameOver(List<string> board, string player)
         {
             bool gameEnd = false;
